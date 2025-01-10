@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Recognition Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Facial Recognition Result</h1>
+
+    <!-- Display the recognized image -->
+    <div>
+        <img src="{{ url_for('static', filename='processed/' + filename) }}" alt="Recognized Image" style="max-width: 100%; height: auto;">
+    </div>
+
+    <br><br>
+    <!-- Back button to return to the home page -->
+    <a href="{{ url_for('index') }}">
+        <button>Back to Home</button>
+    </a>
+</body>
+</html>
