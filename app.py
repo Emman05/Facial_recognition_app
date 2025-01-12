@@ -5,13 +5,13 @@ from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
 
-# Setup paths
+
 UPLOAD_FOLDER = 'uploads'
-TRAINING_IMAGES_FOLDER = 'training_images'  # Folder containing images of Rajinikanth
+TRAINING_IMAGES_FOLDER = 'training_images'
 PROCESSED_FOLDER = 'static/processed'
 MODEL_FOLDER = 'models'
 
-# Create necessary directories
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(TRAINING_IMAGES_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
@@ -46,7 +46,6 @@ def upload():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
 
-    # Process the uploaded image and save the result
     result_path = process_image(filepath, file.filename)
 
     if result_path:
@@ -56,7 +55,6 @@ def upload():
 
 @app.route('/result/<filename>')
 def show_result(filename):
-    # Render the result.html page with the processed image filename
     return render_template('result.html', filename=filename)
 
 def process_image(filepath, filename):
@@ -79,7 +77,7 @@ def process_image(filepath, filename):
 
         # Recognize the face using the trained model
         label, confidence = recognizer.predict(face_roi)
-        if confidence < 80:  # Threshold for recognizing Rajinikanth
+        if confidence < 80:  
             name = "Rajinikanth"
             color = (0, 255, 0)
         else:
@@ -113,7 +111,7 @@ def train_rajinikanth_recognizer():
         for (x, y, w, h) in faces:
             face_roi = gray[y:y + h, x:x + w]
             face_samples.append(face_roi)
-            ids.append(0)  # Single label for Rajinikanth
+            ids.append(0) 
 
     # Train the recognizer with Rajinikanth's face samples
     recognizer.train(face_samples, np.array(ids))
@@ -121,7 +119,6 @@ def train_rajinikanth_recognizer():
     print("Model trained successfully for Rajinikanth.")
 
 if __name__ == '__main__':
-    # Train the model if it doesn't exist
     if not os.path.exists(model_path):
         train_rajinikanth_recognizer()
 
