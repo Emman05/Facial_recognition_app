@@ -33,6 +33,7 @@ project/
 │   ├── index.html          # Home page template
 │   └── result.html         # Result page template
 ├── static/                 # Static files served by Flask
+│   ├── index_style/        # Styles for index.html
 │   └── processed/          # Folder for processed images
 ├── uploads/                # Folder for uploaded images
 ├── training_images/        # Folder for Rajinikanth's training images
